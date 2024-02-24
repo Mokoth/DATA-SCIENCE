@@ -71,6 +71,8 @@ Pointer to data in a table.
 Indexes serve as lookup tables that efficiently store data for quicker retrieval.
 
 ## Case example
+Example, index phone numbers from a customers table:
+
 ```
 CREATE INDEX customers_by_phone
 ON customers (phone_number)
