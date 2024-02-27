@@ -63,12 +63,15 @@ WHERE campaign LIKE '%-2';
 -- These users will have non-empty entries in the 
 -- campaign and test columns.
 
-Find the emails for all users who received both a campaign and a test.
-
-These users will have non-empty entries in the campaign and test columns.
+SELECT * FROM users
+-- WHERE campaign IN ('AAA-1', 'AAA-2', 'BBB-1', 'BBB-2') AND test NOT NULL;
+WHERE campaign NOT NULL AND test NOT NULL;
 
 
 -- 8
 -- Challenge
 -- One of the members of the marketing team had an idea of calculating
 -- how old users were when they signed up.
+
+hint
+-- SET age = DATE_FORMAT(FROM_DAYS(DATEDIFF(created_at, date_of_birth)), '%Y') + 0;
