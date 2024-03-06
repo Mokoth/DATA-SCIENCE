@@ -41,6 +41,7 @@ UPDATE patients
 SET allergies = 'NKA'
 WHERE allergies IS NULL;
 
+-- CONCAT
 -- Show first name and last name concatinated into one column to show their full name.
 SELECT
   CONCAT(first_name, ' ', last_name) AS fullname
@@ -50,6 +51,7 @@ FROM patients;
 SELECT first_name || ' ' || last_name
 FROM patients;
 
+-- INNER JOIN
 -- Show first name, last name, and the full province name of each patient.
 -- Example: 'Ontario' instead of 'ON'
 SELECT
@@ -59,3 +61,45 @@ SELECT
 FROM patients
   JOIN province_names ON province_names.province_id = patients.province_id;
 
+-- AGGREGATE FUNCTION
+-- Show how many patients have a birth_date with 2010 as the birth year.
+SELECT COUNT(*) AS total_patients
+FROM patients
+WHERE YEAR(birth_date) = 2010;
+
+-- OR
+SELECT COUNT(*) AS total_patients
+FROM patients
+WHERE birth_date LIKE '2010%';
+
+-- OR
+SELECT count(first_name) AS total_patients
+FROM patients
+WHERE
+  birth_date >= '2010-01-01'
+  AND birth_date <= '2010-12-31'
+
+-- Show the first_name, last_name, and height of the patient with the greatest height.
+SELECT
+  first_name,
+  last_name,
+  MAX(height) AS height
+FROM patients;
+
+-- OR
+SELECT
+  first_name,
+  last_name,
+  height
+FROM patients
+WHERE height = (
+    SELECT MAX(height)
+  FROM patients
+  )
+
+-- Show all columns for patients who have one of the following patient_ids:
+-- 1,45,534,879,1000
+SELECT *
+FROM patients
+WHERE
+  patient_id IN (1, 45, 534, 879, 1000);
