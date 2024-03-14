@@ -169,4 +169,25 @@ where
   and first_name like '%s'
   and len(first_name) >= 6;
 
+-- Show patient_id, first_name, last_name from patients whos diagnosis is 'Dementia'.
+-- Primary diagnosis is stored in the admissions table.
+SELECT
+  patients.patient_id,
+  first_name,
+  last_name
+FROM patients
+  JOIN admissions ON admissions.patient_id = patients.patient_id
+WHERE diagnosis = 'Dementia';
+
+-- OR
+SELECT
+  patient_id,
+  first_name,
+  last_name
+FROM patients
+WHERE patient_id IN (
+    SELECT patient_id
+    FROM admissions
+    WHERE diagnosis = 'Dementia'
+  );
 
