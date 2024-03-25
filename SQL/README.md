@@ -83,15 +83,17 @@ WHERE job_title_short = 'Data Engineer';
 */ 
 
 -- Comparisons
+
 /* 
   Used within the WHERE or HAVING clause
-  Used in conjunction with comparioson operators: 
+  Used in conjunction with comparison operators: 
   = <> > < >= <= 
-  Used also in conjuction with logical operators:
+  Used also in conjunction with logical operators:
   AND OR BETWEEN IN
  */
  
  -- <> & NOT 
+ 
 /*
  SELECT * 
  FROM job_postings_fact
@@ -101,8 +103,9 @@ WHERE job_title_short = 'Data Engineer';
  */
 
 /*
+
 SELECT
- 	job_id,
+    job_id,
     job_title_short,
     job_via, 
     salary_year_avg 
@@ -112,6 +115,7 @@ ORDER BY salary_year_avg;
 */ 
 
 -- AND - only shows records where all conditions are true.
+
 /*
 SELECT *
 FROM job_postings_fact
@@ -120,6 +124,7 @@ WHERE
     AND job_title = 'Data Analyst'
 ORDER BY salary_year_avg;
 */
+
  -- OR only shows records when any of the conditions are true
 
 /*
