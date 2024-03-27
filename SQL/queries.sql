@@ -42,3 +42,62 @@ To compare similar values. used with the WHERE clause to search for a specific p
   WHERE name LIKE 'Se_en';
 
 N/B - 'Se_en' -> wildcard => _ means you can substitute any character in the search.
+
+-- Operating on Numeric Columns - Calculated fields
+  
+SELECT
+    order_id,
+    sales,
+    profit,
+    profit/sales AS 'profit_margin'
+FROM orders
+LIMIT 8;
+
+-- Integer Division
+-- Performing a regular division - we can use the CAST function, like so: CAST(column/value AS new_datatype).  
+SELECT 
+    CAST(4 AS REAL)/3 AS fort;
+
+-- Write a query that includes:
+-- product_id
+-- quantity
+-- a calculated field that divides quantity by 2 (remember to CAST your integer to a real number)
+-- Alias the calculated field as even_or_odd
+-- Limit your results to 5 rows
+SELECT 
+    product_id,
+    quantity,
+    CAST(quantity AS REAL)/2 AS even_or_odd
+FROM orders
+LIMIT 5;
+
+-- -- Functions on Fields: ROUND()
+ROUND(value, decimal_places)
+
+-- Write a query from the orders table that includes order_id, sales, and quantity.
+-- Create a field price_per_unit that divides sales by quantity.
+-- Round price_per_unit to the nearest cent.
+
+SELECT
+    order_id,
+    sales,
+    quantity,
+    ROUND(sales/quantity, 2) AS 'price_per_unit'
+FROM orders
+LIMIT 10;
+
+SELECT 
+  order_id, 
+  ROUND(sales, 2) AS rounded_sales, 
+  ROUND(sales * .07, 2) AS rounded_sales_tax
+FROM orders;
+
+-- Functions on Fields: UPPER() and LOWER()
+SELECT ship_mode AS original_ship_mode,
+       UPPER(ship_mode) AS SHIP_MODE
+  FROM orders;
+
+-- Write a query that converts customer_name from the orders table to all lowercase letters.
+SELECT
+    LOWER(customer_name) AS 'customer_name_lower'
+FROM orders;
