@@ -171,3 +171,72 @@ SELECT
 FROM orders
 LIMIT 10;
 
+-- Write a query that includes order_id, subcategory, product_name, and a calculated field aliased price_per_unit.
+-- Filter your query so you only see records with a price_per_unit less than $0.50.
+SELECT
+    order_id,
+    subcategory,
+    product_name,
+    sales/quantity AS 'price_per_unit' -- sales/quantity = price_per_unit
+FROM orders
+WHERE sales/quantity < 0.50;
+
+-- Checking for Membership in a Non-Consecutive Range IN
+SELECT order_id, category, subcategory,
+       product_name, sales, discount
+  FROM orders
+ WHERE discount IN (0.15, 0.32, 0.45);
+
+/*
+Write a query that includes order_id, product_name, sales, and quantity from the orders table.
+Include only the following sales amounts:
+3
+14
+15
+*/
+
+SELECT
+    order_id,
+    product_name,
+    sales,
+    quantity
+FROM orders
+WHERE sales IN(3, 14, 15);
+
+-- Checking for Missing Values = NULL values
+-- used with IS or IS NOT
+SELECT order_id, postal_code
+  FROM orders
+ WHERE postal_code IS NULL;
+
+/*
+Write a query that identifies all missing values from the segment field.
+Include all fields.
+After you run your query, write an inline comment with any trends in the missing data.
+*/
+SELECT *
+    FROM orders
+WHERE segment IS NULL; -- NULL values from customer_name = Nat Gilpin
+
+/*
+Write a query to select at least product_name and a calculated field aliased as price_per_unit that divides sales by quantity.
+Only select records in 'Storage' where the price per unit is more than $300.
+*/
+SELECT
+    product_name,
+    sales/quantity AS price_per_unit
+FROM orders
+WHERE subcategory = 'Storage' 
+    AND sales/quantity > 300;
+
+-- OR
+/*
+Write a query that includes at least product_name, profit, and quantity.
+Include a filter for profits lower than -$100 or quantities of 1.
+*/
+SELECT
+    product_name,
+    profit,
+    quantity
+FROM orders
+WHERE profit < -100 OR quantity = 1;
