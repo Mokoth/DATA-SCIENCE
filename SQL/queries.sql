@@ -101,3 +101,73 @@ SELECT ship_mode AS original_ship_mode,
 SELECT
     LOWER(customer_name) AS 'customer_name_lower'
 FROM orders;
+
+-- Concatenating Fields - using column || ' ' || column
+SELECT city || ", " || state AS "location"
+  FROM orders;
+
+-- Write a query that includes order_id, region, and state.
+-- Create a new column called local_store that concatenates the word "Superstore" with city.
+SELECT
+    order_id,
+    region,
+    state,
+    "Superstore" || " " || city AS 'local_store'
+FROM orders
+LIMIT 10;
+
+-- -- Constant Values
+
+-- Sometimes we'll want to add a column to our query that shows a constant number for every record. 
+--   We can do this by specifying the number in the SELECT clause and adding an alias for readability (note that the alias isn't required):
+SELECT sales, 2 AS promotional_discount
+  FROM orders;
+
+-- You've been asked to create a table that shows the salary for all the regional managers.
+-- Write a query from managers that includes all fields.
+-- Create a new column with the manager salary amount: $51,000. Alias it as salary.
+
+SELECT 
+    person,
+    region,
+    51000 AS 'salary'
+FROM managers;
+
+-- Create a field called address that combines city, state, and postal_code in the following format:
+
+-- city, state 99999
+SELECT
+    city || "," || state || " " || postal_code AS address
+FROM orders;
+
+-- Create a field called tax that finds 7% of sales, rounded to the nearest cent.
+SELECT
+    ROUND(sales * .07, 2) AS tax
+FROM orders;
+
+-- Create a field called shipping_cost with a value of 4.99.
+SELECT
+    4.99 AS 'shipping_cost'
+FROM orders;
+
+/*
+Create a field called total_cost that adds the values from sales, shipping_cost, and tax together, rounded to the nearest cent.
+For readability, your final query should include the following fields:
+address
+sales
+tax
+shipping_cost
+total_cost
+Limit your results to 10 rows.
+*/
+
+SELECT
+    city || ", " || state || " " || postal_code AS address,
+    sales,
+    ROUND(sales * .07, 2) AS tax,
+    4.99 AS 'shipping_cost',
+    -- sales + shipping_cost + tax AS 'total_cost'
+    ROUND((sales * .07) + 4.99 + sales, 2) AS total_cost
+FROM orders
+LIMIT 10;
+
