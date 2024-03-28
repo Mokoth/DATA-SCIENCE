@@ -205,6 +205,7 @@ WHERE sales IN(3, 14, 15);
 
 -- Checking for Missing Values = NULL values
 -- used with IS or IS NOT
+NB - COALESCE
 SELECT order_id, postal_code
   FROM orders
  WHERE postal_code IS NULL;
