@@ -241,3 +241,48 @@ SELECT
     quantity
 FROM orders
 WHERE profit < -100 OR quantity = 1;
+
+-- ORDINALS
+-- You can replace the column name with its ordinal position in the SELECT clause.
+SELECT order_id, customer_name, state, product_name
+  FROM orders
+ ORDER BY customer_name, state DESC;
+
+-- same as
+SELECT order_id, customer_name, state, product_name
+  FROM orders
+ ORDER BY 2, 3 DESC;  -- 2 and 3 are the ordinals
+
+-- ORDER BY vs LIMIT
+SELECT order_id, profit / sales AS profit_margin
+  FROM orders
+ ORDER BY profit_margin DESC
+ LIMIT 10;
+
+-- TASK
+-- The Central regional manager wants to see the largest orders by quantity in the Office Supplies category.
+
+-- Write a query to find the top 10 Order IDs with the highest number of units sold (quantity).
+-- Limit your results to the Central region and Office Supplies category.
+
+SELECT order_id, quantity
+  FROM orders
+ WHERE region = 'Central' AND category = 'Office Supplies'
+ ORDER BY quantity DESC
+ LIMIT 10;
+
+
+-- You have been asked to find the top five products with a price per unit under $95.
+
+-- Write a query that includes product_name and a calculated field aliased as price_per_unit.
+-- Filter your results to only look at prices per unit under $95.
+-- Sort your results to see the top 10 prices per unit under $95.
+
+SELECT 
+    product_name,
+    sales/quantity AS price_per_unit
+FROM orders
+WHERE sales/quantity < 95
+ORDER BY price_per_unit DESC
+LIMIT 10;
+    
