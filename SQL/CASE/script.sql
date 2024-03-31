@@ -56,3 +56,54 @@ SELECT
     END AS 'ship_priority'
 FROM orders
 ORDER BY order_date DESC;
+
+-- The manager of Superstore Los Angeles is concerned about the Supplies subcategory because of low performance. They want you to provide data that groups profit margin (profit/sales) into "Great" and "Terrible," and they don't care about the labels in between.
+
+-- Write a query that includes order_id, product_name, a new field called profit_margin calculated by profit/sales, and a CASE expression aliased as profit_category.
+-- Your CASE expression should create the following groups:
+-- If profit margin is greater than 0.3, assign the result as 'Great'.
+-- If profit margin is less than 0.1, assign the result 'Terrible'.
+-- The remaining values should not be assigned a result (but should still appear in the query's output).
+-- Make sure your results only include the 'Supplies' subcategory for the city of 'Los Angeles.'
+-- Order your results by profit_category in descending order.
+
+SELECT 
+    order_id,
+    product_name,
+    profit/sales AS profit_margin,
+    
+    CASE
+        WHEN profit/sales > 0.3 THEN 'Great'
+        WHEN profit/sales < 0.1 THEN 'Terrible'
+        -- ELSE 'None'
+    END AS profit_category
+FROM orders
+WHERE subcategory = 'Supplies' AND city = 'Los Angeles'
+ORDER BY profit_category DESC;
+
+
+-- The manager of Superstore Watertown in New York noticed that the Corporate segment is the most profitable, followed by the Consumer segment. They want you to write a query with the most profitable segments on top so they can learn more about the products these segments purchase.
+
+-- Write a query that includes:
+-- segment
+-- subcategory
+-- product_name
+-- sales
+-- profit
+-- Limit your results to just the city of Watertown. (There is only one city in the database with this name.)
+-- Order your results so that the Corporate segment appears first, then the Consumer segment, followed by any remaining segments.
+
+SELECT
+    segment,
+    subcategory,
+    product_name,
+    sales,
+    profit
+FROM orders
+WHERE city = 'Watertown'
+ORDER BY
+    CASE
+        WHEN segment = 'Corporate' THEN 1
+        WHEN segment = 'Consumer' THEN 2
+        ELSE 3
+    END;
